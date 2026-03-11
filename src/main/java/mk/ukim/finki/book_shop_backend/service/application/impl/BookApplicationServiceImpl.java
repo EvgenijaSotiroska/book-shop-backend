@@ -54,4 +54,9 @@ public class BookApplicationServiceImpl implements BookApplicationService {
     public Optional<DisplayBookDto> deleteById(Long id) {
         return bookService.deleteById(id).map(DisplayBookDto::from);
     }
+
+    @Override
+    public DisplayBookDto borrowBook(Long id){
+        return DisplayBookDto.from(bookService.borrowBook(id));
+    }
 }

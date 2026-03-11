@@ -17,4 +17,6 @@ public interface BookApplicationService {
 
     Optional<DisplayBookDto> deleteById(Long id);
 
+    DisplayBookDto borrowBook(Long id);
+
 }

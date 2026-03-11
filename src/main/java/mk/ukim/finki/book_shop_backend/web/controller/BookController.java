@@ -61,6 +61,10 @@ public class BookController {
     }
 
 
+    @PutMapping("/{id}/borrow")
+    public ResponseEntity<DisplayBookDto> borrowBook(@PathVariable Long id) {
+        return ResponseEntity.ok(bookApplicationService.borrowBook(id));
+    }
 }
 
 
