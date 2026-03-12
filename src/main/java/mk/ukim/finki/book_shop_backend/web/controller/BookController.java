@@ -1,12 +1,12 @@
 package mk.ukim.finki.book_shop_backend.web.controller;
 
 import jakarta.validation.Valid;
-import mk.ukim.finki.book_shop_backend.model.dto.CreateAuthorDto;
+
 import mk.ukim.finki.book_shop_backend.model.dto.CreateBookDto;
-import mk.ukim.finki.book_shop_backend.model.dto.DisplayAuthorDto;
+import mk.ukim.finki.book_shop_backend.model.dto.DisplayBookCopyDto;
 import mk.ukim.finki.book_shop_backend.model.dto.DisplayBookDto;
-import mk.ukim.finki.book_shop_backend.service.application.AuthorApplicationService;
 import mk.ukim.finki.book_shop_backend.service.application.BookApplicationService;
+import mk.ukim.finki.book_shop_backend.service.application.BookCopyApplicationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +17,11 @@ import java.util.List;
 public class BookController {
 
     private final BookApplicationService bookApplicationService;
+    private final BookCopyApplicationService bookCopyApplicationService;
 
-    public BookController(BookApplicationService bookApplicationService) {
+    public BookController(BookApplicationService bookApplicationService, BookCopyApplicationService bookCopyApplicationService) {
         this.bookApplicationService = bookApplicationService;
+        this.bookCopyApplicationService = bookCopyApplicationService;
     }
 
     @GetMapping("/{id}")
@@ -62,8 +64,8 @@ public class BookController {
 
 
     @PutMapping("/{id}/borrow")
-    public ResponseEntity<DisplayBookDto> borrowBook(@PathVariable Long id) {
-        return ResponseEntity.ok(bookApplicationService.borrowBook(id));
+    public ResponseEntity<DisplayBookCopyDto> borrowBook(@PathVariable Long id) {
+        return ResponseEntity.ok(bookCopyApplicationService.borrowBook(id));
     }
 }
 

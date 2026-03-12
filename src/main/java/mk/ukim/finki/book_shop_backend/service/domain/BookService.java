@@ -16,6 +16,4 @@ public interface BookService {
 
     Optional<Book> deleteById(Long id);
 
-    Book borrowBook(Long id);
-
 }

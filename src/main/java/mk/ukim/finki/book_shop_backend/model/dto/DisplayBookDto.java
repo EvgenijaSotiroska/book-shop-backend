@@ -1,17 +1,11 @@
 package mk.ukim.finki.book_shop_backend.model.dto;
 
 import mk.ukim.finki.book_shop_backend.model.domain.Book;
-import mk.ukim.finki.book_shop_backend.model.enumeration.Category;
-import mk.ukim.finki.book_shop_backend.model.enumeration.State;
-
 import java.util.List;
 
 public record DisplayBookDto(
         Long id,
         String name,
-        State state,
-        Category category,
-        int availableCopies,
         Long authorId
 ) {
 
@@ -19,9 +13,6 @@ public record DisplayBookDto(
         return new DisplayBookDto(
                 book.getId(),
                 book.getName(),
-                book.getState(),
-                book.getCategory(),
-                book.getAvailableCopies(),
                 book.getAuthor().getId()
         );
     }

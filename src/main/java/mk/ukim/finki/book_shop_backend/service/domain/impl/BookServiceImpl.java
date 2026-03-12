@@ -1,7 +1,6 @@
 package mk.ukim.finki.book_shop_backend.service.domain.impl;
 
 import mk.ukim.finki.book_shop_backend.model.domain.Book;
-import mk.ukim.finki.book_shop_backend.model.enumeration.State;
 import mk.ukim.finki.book_shop_backend.repository.BookRepository;
 import mk.ukim.finki.book_shop_backend.service.domain.BookService;
 import org.springframework.stereotype.Service;
@@ -38,9 +37,6 @@ public class BookServiceImpl  implements BookService {
                 .findById(id)
                 .map((existingBook) -> {
                     existingBook.setName(book.getName());
-                    existingBook.setState(book.getState());
-                    existingBook.setCategory(book.getCategory());
-                    existingBook.setAvailableCopies(book.getAvailableCopies());
                     existingBook.setAuthor(book.getAuthor());
                     return bookRepository.save(existingBook);
                 });
@@ -51,23 +47,5 @@ public class BookServiceImpl  implements BookService {
         Optional<Book> book = bookRepository.findById(id);
         book.ifPresent(bookRepository::delete);
         return book;
-    }
-
-    @Override
-    public Book borrowBook(Long id) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found"));
-
-        if(book.getState() == State.BAD){
-            throw new RuntimeException("Book is not in good condition");
-        }
-
-        if(book.getAvailableCopies() <= 0){
-            throw new RuntimeException("No available copies");
-        }
-
-        book.setAvailableCopies(book.getAvailableCopies() - 1);
-
-        return bookRepository.save(book);
     }
 }

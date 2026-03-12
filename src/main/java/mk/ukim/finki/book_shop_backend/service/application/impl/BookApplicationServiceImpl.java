@@ -8,7 +8,6 @@ import mk.ukim.finki.book_shop_backend.service.application.BookApplicationServic
 import mk.ukim.finki.book_shop_backend.service.domain.AuthorService;
 import mk.ukim.finki.book_shop_backend.service.domain.BookService;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -53,10 +52,5 @@ public class BookApplicationServiceImpl implements BookApplicationService {
     @Override
     public Optional<DisplayBookDto> deleteById(Long id) {
         return bookService.deleteById(id).map(DisplayBookDto::from);
-    }
-
-    @Override
-    public DisplayBookDto borrowBook(Long id){
-        return DisplayBookDto.from(bookService.borrowBook(id));
     }
 }
