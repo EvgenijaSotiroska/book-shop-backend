@@ -1,6 +1,7 @@
 package mk.ukim.finki.book_shop_backend.web.handler;
 
 import mk.ukim.finki.book_shop_backend.model.exception.AuthorNotFoundException;
+import mk.ukim.finki.book_shop_backend.model.exception.NoAvailableCopiesException;
 import mk.ukim.finki.book_shop_backend.web.controller.BookController;
 import mk.ukim.finki.book_shop_backend.web.dto.ApiError;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class BookControllerExceptionHandler {
     @ExceptionHandler(AuthorNotFoundException.class)
     public ResponseEntity<ApiError> handleNotFound(AuthorNotFoundException exception) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ApiError.of(HttpStatus.NOT_FOUND, exception.getMessage()));
+    }
+
+    @ExceptionHandler(NoAvailableCopiesException.class)
+    public ResponseEntity<ApiError> handleNotFound(NoAvailableCopiesException exception) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(ApiError.of(HttpStatus.NOT_FOUND, exception.getMessage()));

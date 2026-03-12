@@ -1,6 +1,7 @@
 package mk.ukim.finki.book_shop_backend.service.domain.impl;
 
 import mk.ukim.finki.book_shop_backend.model.domain.BookCopy;
+import mk.ukim.finki.book_shop_backend.model.exception.NoAvailableCopiesException;
 import mk.ukim.finki.book_shop_backend.repository.BookCopyRepository;
 import mk.ukim.finki.book_shop_backend.service.domain.BookCopyService;
 import org.springframework.stereotype.Service;
@@ -52,7 +53,7 @@ public class BookCopyServiceImpl implements BookCopyService {
     public BookCopy borrowBook(Long id) {
         BookCopy copy = bookCopyRepository
                 .findFirstByBookIdAndBorrowedFalse(id)
-                .orElseThrow(() -> new RuntimeException("No available copies"));
+                .orElseThrow(() -> new NoAvailableCopiesException("No available copies"));
 
         copy.setBorrowed(true);
 
